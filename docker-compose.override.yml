@@ -1,0 +1,21 @@
+version: '2.2'
+
+volumes:
+  s3data:
+    driver: local
+services:
+  s3vol:
+    image: elementar/s3-volume
+    command: /data s3://pimpmypixel/mp3
+    environment:
+      - AWS_ACCESS_KEY_ID={AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY={AWS_SECRET_ACCESS_KEY}
+#    volumes:
+#      - s3data:/data
+  web:
+    volumes:
+      - s3data:/var/azuracast/stations/fri_radio/media/
+
+  stations:
+    volumes:
+      - s3data:/var/azuracast/stations/fri_radio/media/
